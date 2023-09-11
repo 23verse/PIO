@@ -263,7 +263,14 @@ oPierMatrix <- function(list_pNode, displayBy=c("score","rank","weight","pvalue"
 				#################
 				ind <- match(unique(predictor_names), colnames(mat_evidence))
 			}
-			priority <- data.frame(df_priority[,c("name","rank","rating","description")], seed=ifelse(overall!=0,'Y','N'), mat_evidence[,ind[!is.na(ind)]], stringsAsFactors=FALSE)
+			
+			if(length(ind) == 1){
+				# only one predictor type
+				priority <- data.frame(df_priority[,c("name","rank","rating","description")], seed=ifelse(overall!=0,'Y','N'), mat_evidence, stringsAsFactors=FALSE)
+			}else{
+				priority <- data.frame(df_priority[,c("name","rank","rating","description")], seed=ifelse(overall!=0,'Y','N'), mat_evidence[,ind[!is.na(ind)]], stringsAsFactors=FALSE)
+			}
+			
 			
 			priority <- priority %>% tibble::as_tibble()
 			df_predictor <- df_predictor %>% tibble::as_tibble()
@@ -379,7 +386,14 @@ oPierMatrix <- function(list_pNode, displayBy=c("score","rank","weight","pvalue"
 				#################
 				ind <- match(unique(predictor_names), colnames(mat_evidence))
 			}
-			priority <- data.frame(df_priority[,c("name","rank","rating","description")], seed=ifelse(overall!=0,'Y','N'), mat_evidence[,ind[!is.na(ind)]], stringsAsFactors=FALSE)
+			
+			if(length(ind) == 1){
+				# only one predictor type
+				priority <- data.frame(df_priority[,c("name","rank","rating","description")], seed=ifelse(overall!=0,'Y','N'), mat_evidence, stringsAsFactors=FALSE)
+			}else{
+				priority <- data.frame(df_priority[,c("name","rank","rating","description")], seed=ifelse(overall!=0,'Y','N'), mat_evidence[,ind[!is.na(ind)]], stringsAsFactors=FALSE)
+			}
+			
 			
 			priority <- priority %>% tibble::as_tibble()
 			df_predictor <- df_predictor %>% tibble::as_tibble()
