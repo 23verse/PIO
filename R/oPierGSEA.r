@@ -60,15 +60,17 @@ oPierGSEA <- function(pNode, priority.top=NULL, customised.genesets, size.range=
     
     if(is(pNode,"pNode")){
     	if(is(pNode$priority,"tbl")){
-    		df_priority <- pNode$priority %>% tibble::column_to_rownames('name')
+    		name1 <- NULL
+    		df_priority <- pNode$priority %>% dplyr::mutate(name1=name) %>% tibble::column_to_rownames('name1')
     	}else{
     		df_priority <- pNode$priority
     	}
-        df_priority <- df_priority[, c("name","seed","weight","priority","rank")]
+        df_priority <- df_priority[, c("name","seed","weight","priority","rank")]      
         
     }else if(is(pNode,"sTarget") | is(pNode,"dTarget")){
     	if(is(pNode$priority,"tbl")){
-    		df_priority <- pNode$priority %>% tibble::column_to_rownames('name')
+    		name1 <- NULL
+    		df_priority <- pNode$priority %>% dplyr::mutate(name1=name) %>% tibble::column_to_rownames('name1')
     	}else{
     		df_priority <- pNode$priority
     	}
