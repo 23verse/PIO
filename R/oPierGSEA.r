@@ -59,14 +59,22 @@ oPierGSEA <- function(pNode, priority.top=NULL, customised.genesets, size.range=
     weight <- as.integer(weight)
     
     if(is(pNode,"pNode")){
-        df_priority <- pNode$priority[, c("name","seed","weight","priority","rank")]
-    	df_priority <- df_priority %>% as.data.frame()
-    	rownames(df_priority) <- df_priority$name
+    	if(is(pNode$priority,"tbl")){
+    		df_priority <- pNode$priority %>% tibble::column_to_rownames('name')
+    	}else{
+    		df_priority <- pNode$priority
+    	}
+        df_priority <- df_priority[, c("name","seed","weight","priority","rank")]
+        
     }else if(is(pNode,"sTarget") | is(pNode,"dTarget")){
-    	df_priority <- pNode$priority[, c("name","rank","rating")]
+    	if(is(pNode$priority,"tbl")){
+    		df_priority <- pNode$priority %>% tibble::column_to_rownames('name')
+    	}else{
+    		df_priority <- pNode$priority
+    	}
+    	df_priority <- df_priority[, c("name","rank","rating")]
     	df_priority$priority <- df_priority$rating
-    	df_priority <- df_priority %>% as.data.frame()
-    	rownames(df_priority) <- df_priority$name
+
 	}else if(is(pNode,"data.frame")){
     	df_priority <- pNode[,c(1:2)] %>% as.data.frame()
     	colnames(df_priority) <- c("priority","rank")
