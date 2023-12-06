@@ -63,5 +63,6 @@ Collate:
      'oSEAballoon.r'
      'oAUCurve.r'
      'oTIG.r'
+     'oBiproject.r'
 License: GPL-2
 biocViews: SystemsBiology, FunctionalGenomics, GeneTarget, Pathways
